@@ -8,13 +8,15 @@
 import SwiftUI
 
 @available(macOS 14.0, *)
-struct RecentFilesMenu: View {
+public struct RecentFilesMenu: View {
     
     @Environment(\.recentFiles) var recentFiles
         
     @Environment(\.openDocument) var openDocument
 
-    var body: some View {
+    public init() {}
+
+    public var body: some View {
         
         Menu("Open Recent") {
             

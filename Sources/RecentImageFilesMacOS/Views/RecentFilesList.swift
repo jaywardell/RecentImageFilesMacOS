@@ -19,6 +19,8 @@ public struct RecentFilesList: View {
 
     @ScaledMetric private var labelSpacing = 8
     
+    public init() {}
+    
     @ViewBuilder
     private func image(for file: RecentFiles.File, size: CGFloat) -> some View {
         if let recentFiles {
