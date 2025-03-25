@@ -88,7 +88,7 @@ public final class RecentFiles {
     private(set) var archive: Archive
     var files: [File] { archive.files }
 
-    func nameForFile(at url: URL) -> String {
+    public func nameForFile(at url: URL) -> String {
         let file = files.first {
             $0.fileURL == url
         }
