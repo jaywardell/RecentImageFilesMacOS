@@ -29,7 +29,7 @@ public final class RecentFiles {
     let directory: URL
     let limit: Int
     
-    public struct File: Equatable, Hashable, Codable {
+    public struct File: Equatable, Hashable, Codable, Sendable {
         fileprivate let fileURL: URL
         let displayName: String
         let type: UTType
