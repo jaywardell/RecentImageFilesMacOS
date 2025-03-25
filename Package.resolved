@@ -1,0 +1,15 @@
+{
+  "originHash" : "4e34c0008548b162f018c83fdd1f468fba601e4dd26383d03b9a14b8ee519e66",
+  "pins" : [
+    {
+      "identity" : "filemenuactionsmacos",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jaywardell/FileMenuActionsMacOS",
+      "state" : {
+        "revision" : "812e317b93c7bcb7fdc5a87bfba2f35e4779014b",
+        "version" : "0.1.0"
+      }
+    }
+  ],
+  "version" : 3
+}
