@@ -19,7 +19,7 @@ import UniformTypeIdentifiers
 
 @available(macOS 14.0, *)
 @Observable
-final class RecentFiles {
+public final class RecentFiles {
     
     enum Error: Swift.Error {
         case invalidURL
@@ -29,7 +29,7 @@ final class RecentFiles {
     let directory: URL
     let limit: Int
     
-    struct File: Equatable, Hashable, Codable {
+    public struct File: Equatable, Hashable, Codable {
         fileprivate let fileURL: URL
         let displayName: String
         let type: UTType
@@ -47,7 +47,7 @@ final class RecentFiles {
             !fileURL.absoluteString.hasPrefix(URL.temporaryDirectory.absoluteString)
         }
         
-        init?(_ fileURL: URL,
+        public init?(_ fileURL: URL,
               date: Date = .now,
               suggestedName: String? = nil) {
                         
@@ -103,7 +103,7 @@ final class RecentFiles {
         return url.lastPathComponent
     }
     
-    func add(_ file: File) throws {
+    public func add(_ file: File) throws {
                 
         let fm = FileManager()
         while archive.files.count > limit - 1 {
@@ -145,7 +145,7 @@ final class RecentFiles {
         store()
     }
     
-    func forget(_ file: File) {
+    public func forget(_ file: File) {
         guard let index = archive.files.firstIndex(of: file) else { return }
         
         archive.files.remove(at: index)
@@ -156,7 +156,7 @@ final class RecentFiles {
         store()
     }
     
-    func clear() {
+    public func clear() {
         archive = .empty
         
         let fm = FileManager()
@@ -228,7 +228,7 @@ extension RecentFiles {
     static let slashReplacement = "|||"
     
     @MainActor
-    static let forApp: RecentFiles? = {
+    public static let forApp: RecentFiles? = {
         let limit = UserDefaults.standard.recentFileLimit
         return try? RecentFiles(URL.applicationSupportDirectory.appending(component: "RecentFiles"), limit: limit)
     }()
