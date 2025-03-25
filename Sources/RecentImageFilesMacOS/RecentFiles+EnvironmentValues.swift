@@ -8,6 +8,6 @@
 import SwiftUI
 
 @available(macOS 14.0, *)
-extension EnvironmentValues {
+public extension EnvironmentValues {
     @Entry var recentFiles: RecentFiles?
 }

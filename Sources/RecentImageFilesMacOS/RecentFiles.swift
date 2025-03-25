@@ -223,7 +223,6 @@ public final class RecentFiles {
 
 @available(macOS 14.0, *)
 extension RecentFiles {
-    static let slashReplacement = "|||"
     
     @MainActor
     public static let forApp: RecentFiles? = {
