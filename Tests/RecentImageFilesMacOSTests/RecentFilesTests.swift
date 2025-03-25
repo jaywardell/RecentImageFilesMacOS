@@ -295,10 +295,8 @@ struct add {
         try sut.add(file1)
         try sut.add(file2)
         try sut.add(file3)
-        var recentFile: RecentFiles.File!
-        try await sut.usingURL(for: file1) {
-            recentFile = try #require(RecentFiles.File($0))
-        }
+        let recentFileURL = try #require(sut.currentURL(for: file1))
+        let recentFile = try #require(RecentFiles.File(recentFileURL))
         
         try sut.add(recentFile)
         
@@ -365,38 +363,30 @@ struct clear {
     }
 }
 
-@Suite("usingURL")
-struct UsingURL {
+@Suite("currentURL")
+struct currentURL {
 
     @available(macOS 14.0, *)
     @Test
-    func usingURL_does_nothing_if_file_is_not_contained_in_files() async throws {
+    func returns_nil_if_file_is_not_contained_in_files() async throws {
         let sut = makeSUT()
         let url = createTemporaryFile()
         let file = try #require(RecentFiles.File(url))
         
-        var passedInURL: URL?
-        try await sut.usingURL(for: file) {
-            passedInURL = $0
-        }
-
-        #expect(nil == passedInURL)
+        #expect(nil == sut.currentURL(for: file))
     }
 
     @available(macOS 14.0, *)
     @Test
-    func usingURL_passes_back_URL_of_copied_file() async throws {
+    func returns_current_URL_of_copied_file() async throws {
         let sut = makeSUT()
         let url = createTemporaryFile()
         let file = try #require(RecentFiles.File(url))
         try sut.add(file)
         
-        var passedInURL: URL?
-        try await sut.usingURL(for: file) {
-            passedInURL = $0
-        }
+        let passedInURL = try #require(sut.currentURL(for: file))
         
-        #expect(true == passedInURL?.absoluteString.hasPrefix(sut.directory.absoluteString))
+        #expect(passedInURL.absoluteString.hasPrefix(sut.directory.absoluteString))
     }
 
 }
@@ -489,11 +479,7 @@ func createTemporaryFile(
     suffix: String = "txt",
     content: String = ""
 ) -> URL {
-    
-//    let dir = FileManager().temporaryDirectory.appending(path: "Documents/\(UUID().uuidString)")
-//    
-//    let out = dir.appending(component: "/\(name).\(suffix)")
-  
+      
     let (file, dir) = temporaryFile(named: name, suffix: suffix)
     
     do {

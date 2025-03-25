@@ -205,18 +205,16 @@ public final class RecentFiles {
                 print("Error writing recent files data to \(filesDataPath): \(error.localizedDescription)")
             }
     }
-    
-    func usingURL(for file: File, callback: @escaping (URL) async throws -> Void) async throws {
         
-        guard let url = archive.copiedFiles[file.fileURL] else { return }
-        
-        try await callback(url)
+    func currentURL(for file: File) -> URL? {
+        guard let url = archive.copiedFiles[file.fileURL] else { return nil }
+        return url
     }
     
-    func usingOriginalURL(for file: File, callback: @escaping (URL) async throws -> Void) async throws {
-        guard file.representsFileSystemFile else { return }
-        
-        try await callback(file.fileURL)
+    func originalURL(for file: File) -> URL? {
+        guard file.representsFileSystemFile else { return nil }
+
+        return file.fileURL
     }
 
 }
