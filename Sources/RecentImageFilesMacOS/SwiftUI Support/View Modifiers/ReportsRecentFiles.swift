@@ -30,7 +30,7 @@ fileprivate struct ReportsRecentFiles: ViewModifier {
 }
 
 @available(macOS 14.0, *)
-extension View {
+public extension View {
     func reportsToRecentFiles() -> some View {
         modifier(ReportsRecentFiles())
     }
